@@ -1,0 +1,83 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build active C++ file",
+      "type": "shell",
+      "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+      "args": [
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$gcc",
+      "detail": "Compile the currently open C++ file."
+    },
+    {
+      "label": "Run active C++ file",
+      "type": "shell",
+      "command": "& '${fileDirname}\\${fileBasenameNoExtension}.exe'",
+      "dependsOn": "Build active C++ file",
+      "group": "test",
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "detail": "Build and run the currently open C++ file."
+    },
+    {
+      "label": "Run active C++ file with templates/input.txt",
+      "type": "shell",
+      "command": "Get-Content -Raw '${workspaceFolder}\\templates\\input.txt' | & '${fileDirname}\\${fileBasenameNoExtension}.exe'",
+      "dependsOn": "Build active C++ file",
+      "group": "test",
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "detail": "Build and run the current file using templates/input.txt as stdin."
+    },
+    {
+      "label": "Create new problem from template",
+      "type": "shell",
+      "command": ".\\scripts\\New-Problem.ps1 ${input:problemName}",
+      "problemMatcher": [],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "detail": "Create a new file in 10_problem_solving/solved from templates/problem_template.cpp."
+    },
+    {
+      "label": "Format active C++ file",
+      "type": "shell",
+      "command": "$clangFormat = Get-ChildItem -Path \"$env:USERPROFILE\\.vscode\\extensions\\ms-vscode.cpptools-*\\LLVM\\bin\\clang-format.exe\" -ErrorAction SilentlyContinue | Sort-Object FullName -Descending | Select-Object -First 1; if (-not $clangFormat) { throw 'clang-format.exe not found. Install ms-vscode.cpptools or add clang-format to PATH.' }; & $clangFormat.FullName -i '${file}'",
+      "problemMatcher": [],
+      "detail": "Format the current file with .clang-format."
+    },
+    {
+      "label": "Clean build outputs",
+      "type": "shell",
+      "command": "$root = Resolve-Path '${workspaceFolder}'; Get-ChildItem -LiteralPath $root -Recurse -File -Include *.exe,*.o,*.obj,*.out | Where-Object { $_.FullName -like \"$($root.Path)*\" } | Remove-Item -Force",
+      "problemMatcher": [],
+      "detail": "Remove generated build files from the workspace."
+    }
+  ],
+  "inputs": [
+    {
+      "id": "problemName",
+      "type": "promptString",
+      "description": "Problem file name",
+      "default": "new_problem"
+    }
+  ]
+}
+

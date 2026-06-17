@@ -1,0 +1,17 @@
+# Build outputs
+.build_check/
+*.exe
+*.out
+*.o
+*.obj
+*.pdb
+*.ilk
+
+# Local input/output scratch files
+output.txt
+*.log
+
+# Editor/system noise
+.DS_Store
+Thumbs.db
+.vs/

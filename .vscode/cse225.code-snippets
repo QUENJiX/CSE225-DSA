@@ -1,0 +1,536 @@
+{
+  "CSE225 problem template": {
+    "scope": "cpp",
+    "prefix": "cse",
+    "description": "CSE225 competitive programming starter",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "using namespace std;",
+      "",
+      "using ll = long long;",
+      "using pii = pair<int, int>;",
+      "using vi = vector<int>;",
+      "",
+      "#define all(x) (x).begin(), (x).end()",
+      "#define sz(x) static_cast<int>((x).size())",
+      "",
+      "void solve() {",
+      "    $1",
+      "}",
+      "",
+      "int main() {",
+      "    ios::sync_with_stdio(false);",
+      "    cin.tie(nullptr);",
+      "",
+      "    int t = 1;",
+      "    // cin >> t;",
+      "    while (t--) {",
+      "        solve();",
+      "    }",
+      "",
+      "    return 0;",
+      "}"
+    ]
+  },
+  "Fast io": {
+    "scope": "cpp",
+    "prefix": "fastio",
+    "description": "Fast C++ input/output",
+    "body": [
+      "ios::sync_with_stdio(false);",
+      "cin.tie(nullptr);"
+    ]
+  },
+  "Print line": {
+    "scope": "cpp",
+    "prefix": "out",
+    "description": "Print a value followed by newline",
+    "body": [
+      "cout << ${1:value} << '\\n';"
+    ]
+  },
+  "Print label and value": {
+    "scope": "cpp",
+    "prefix": "outv",
+    "description": "Print a label and a variable",
+    "body": [
+      "cout << \"${1:name}: \" << ${2:value} << '\\n';"
+    ]
+  },
+  "Input variables": {
+    "scope": "cpp",
+    "prefix": "in",
+    "description": "Read variables from cin",
+    "body": [
+      "cin >> ${1:x};"
+    ]
+  },
+  "Read full line": {
+    "scope": "cpp",
+    "prefix": "getline",
+    "description": "Read a full line into a string",
+    "body": [
+      "string ${1:line};",
+      "getline(cin, ${1:line});"
+    ]
+  },
+  "Test case loop": {
+    "scope": "cpp",
+    "prefix": "tc",
+    "description": "Read t and loop over test cases",
+    "body": [
+      "int ${1:t};",
+      "cin >> ${1:t};",
+      "while (${1:t}--) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "If statement": {
+    "scope": "cpp",
+    "prefix": "if",
+    "description": "if statement",
+    "body": [
+      "if (${1:condition}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "If else statement": {
+    "scope": "cpp",
+    "prefix": "ife",
+    "description": "if else statement",
+    "body": [
+      "if (${1:condition}) {",
+      "    $2",
+      "} else {",
+      "    $0",
+      "}"
+    ]
+  },
+  "If else-if else statement": {
+    "scope": "cpp",
+    "prefix": "elif",
+    "description": "if else-if else chain",
+    "body": [
+      "if (${1:condition}) {",
+      "    $2",
+      "} else if (${3:otherCondition}) {",
+      "    $4",
+      "} else {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Switch statement": {
+    "scope": "cpp",
+    "prefix": "switch",
+    "description": "switch statement",
+    "body": [
+      "switch (${1:value}) {",
+      "    case ${2:1}:",
+      "        $3",
+      "        break;",
+      "    default:",
+      "        $0",
+      "        break;",
+      "}"
+    ]
+  },
+  "For loop": {
+    "scope": "cpp",
+    "prefix": "fori",
+    "description": "for loop from 0 to n",
+    "body": [
+      "for (int ${1:i} = 0; ${1:i} < ${2:n}; ++${1:i}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "For loop inclusive": {
+    "scope": "cpp",
+    "prefix": "forinc",
+    "description": "for loop from 1 to n inclusive",
+    "body": [
+      "for (int ${1:i} = 1; ${1:i} <= ${2:n}; ++${1:i}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Reverse for loop": {
+    "scope": "cpp",
+    "prefix": "forr",
+    "description": "reverse for loop",
+    "body": [
+      "for (int ${1:i} = ${2:n} - 1; ${1:i} >= 0; --${1:i}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Range for loop": {
+    "scope": "cpp",
+    "prefix": "forx",
+    "description": "range-based for loop",
+    "body": [
+      "for (const auto& ${1:x} : ${2:values}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Mutable range for loop": {
+    "scope": "cpp",
+    "prefix": "forxr",
+    "description": "range-based for loop by mutable reference",
+    "body": [
+      "for (auto& ${1:x} : ${2:values}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "While loop": {
+    "scope": "cpp",
+    "prefix": "while",
+    "description": "while loop",
+    "body": [
+      "while (${1:condition}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Do while loop": {
+    "scope": "cpp",
+    "prefix": "dowhile",
+    "description": "do while loop",
+    "body": [
+      "do {",
+      "    $0",
+      "} while (${1:condition});"
+    ]
+  },
+  "2D nested loops": {
+    "scope": "cpp",
+    "prefix": "loop2",
+    "description": "nested loops over rows and columns",
+    "body": [
+      "for (int ${1:i} = 0; ${1:i} < ${2:rows}; ++${1:i}) {",
+      "    for (int ${3:j} = 0; ${3:j} < ${4:cols}; ++${3:j}) {",
+      "        $0",
+      "    }",
+      "}"
+    ]
+  },
+  "3D nested loops": {
+    "scope": "cpp",
+    "prefix": "loop3",
+    "description": "three nested loops",
+    "body": [
+      "for (int ${1:i} = 0; ${1:i} < ${2:x}; ++${1:i}) {",
+      "    for (int ${3:j} = 0; ${3:j} < ${4:y}; ++${3:j}) {",
+      "        for (int ${5:k} = 0; ${5:k} < ${6:z}; ++${5:k}) {",
+      "            $0",
+      "        }",
+      "    }",
+      "}"
+    ]
+  },
+  "Vector int declaration": {
+    "scope": "cpp",
+    "prefix": "vec",
+    "description": "Declare a vector<int>",
+    "body": [
+      "vector<int> ${1:a}(${2:n});"
+    ]
+  },
+  "2D vector declaration": {
+    "scope": "cpp",
+    "prefix": "vec2",
+    "description": "Declare a 2D vector",
+    "body": [
+      "vector<vector<int>> ${1:grid}(${2:rows}, vector<int>(${3:cols}, ${4:0}));"
+    ]
+  },
+  "3D vector declaration": {
+    "scope": "cpp",
+    "prefix": "vec3",
+    "description": "Declare a 3D vector",
+    "body": [
+      "vector<vector<vector<int>>> ${1:dp}(${2:x}, vector<vector<int>>(${3:y}, vector<int>(${4:z}, ${5:0})));"
+    ]
+  },
+  "Pair declaration": {
+    "scope": "cpp",
+    "prefix": "pair",
+    "description": "Declare a pair<int, int>",
+    "body": [
+      "pair<int, int> ${1:p} = {${2:first}, ${3:second}};"
+    ]
+  },
+  "Sort ascending": {
+    "scope": "cpp",
+    "prefix": "sorta",
+    "description": "Sort a container ascending",
+    "body": [
+      "sort(${1:a}.begin(), ${1:a}.end());"
+    ]
+  },
+  "Sort descending": {
+    "scope": "cpp",
+    "prefix": "sortd",
+    "description": "Sort a container descending",
+    "body": [
+      "sort(${1:a}.rbegin(), ${1:a}.rend());"
+    ]
+  },
+  "Yes no output": {
+    "scope": "cpp",
+    "prefix": "yesno",
+    "description": "Print YES or NO from a boolean condition",
+    "body": [
+      "cout << (${1:condition} ? \"YES\" : \"NO\") << '\\n';"
+    ]
+  },
+  "Chmax": {
+    "scope": "cpp",
+    "prefix": "chmax",
+    "description": "Update a variable to the maximum value",
+    "body": [
+      "${1:best} = max(${1:best}, ${2:value});"
+    ]
+  },
+  "Chmin": {
+    "scope": "cpp",
+    "prefix": "chmin",
+    "description": "Update a variable to the minimum value",
+    "body": [
+      "${1:best} = min(${1:best}, ${2:value});"
+    ]
+  },
+  "Lambda": {
+    "scope": "cpp",
+    "prefix": "lambda",
+    "description": "Capture-by-reference lambda",
+    "body": [
+      "auto ${1:fn} = [&](${2:int x}) {",
+      "    $0",
+      "};"
+    ]
+  },
+  "Solve function": {
+    "scope": "cpp",
+    "prefix": "solve",
+    "description": "solve() function",
+    "body": [
+      "void solve() {",
+      "    $1",
+      "}"
+    ]
+  },
+  "Debug value": {
+    "scope": "cpp",
+    "prefix": "dbg",
+    "description": "Print variable to cerr",
+    "body": [
+      "cerr << \"${1:name} = \" << ${1:name} << '\\n';"
+    ]
+  },
+  "Read vector": {
+    "scope": "cpp",
+    "prefix": "readv",
+    "description": "Read n values into a vector",
+    "body": [
+      "int ${1:n};",
+      "cin >> ${1:n};",
+      "vector<int> ${2:a}(${1:n});",
+      "for (int& x : ${2:a}) {",
+      "    cin >> x;",
+      "}"
+    ]
+  },
+  "Class skeleton": {
+    "scope": "cpp",
+    "prefix": "classx",
+    "description": "C++ class with private data and public methods",
+    "body": [
+      "class ${1:ClassName} {",
+      "private:",
+      "    ${2:int value};",
+      "",
+      "public:",
+      "    ${1:ClassName}(${3:int initialValue}) : ${4:value(initialValue)} {}",
+      "",
+      "    $0",
+      "};"
+    ]
+  },
+  "Binary search index": {
+    "scope": "cpp",
+    "prefix": "bsidx",
+    "description": "Binary search for target index in sorted vector",
+    "body": [
+      "int lo = 0, hi = static_cast<int>(${1:a}.size()) - 1;",
+      "while (lo <= hi) {",
+      "    int mid = lo + (hi - lo) / 2;",
+      "    if (${1:a}[mid] == ${2:target}) {",
+      "        ${3:return mid;}",
+      "    } else if (${1:a}[mid] < ${2:target}) {",
+      "        lo = mid + 1;",
+      "    } else {",
+      "        hi = mid - 1;",
+      "    }",
+      "}"
+    ]
+  },
+  "Binary search answer": {
+    "scope": "cpp",
+    "prefix": "bsans",
+    "description": "Binary search on monotonic answer",
+    "body": [
+      "auto ok = [&](long long x) {",
+      "    $1",
+      "    return true;",
+      "};",
+      "",
+      "long long lo = ${2:0}, hi = ${3:1000000000}, ans = hi;",
+      "while (lo <= hi) {",
+      "    long long mid = lo + (hi - lo) / 2;",
+      "    if (ok(mid)) {",
+      "        ans = mid;",
+      "        hi = mid - 1;",
+      "    } else {",
+      "        lo = mid + 1;",
+      "    }",
+      "}"
+    ]
+  },
+  "Graph adjacency list": {
+    "scope": "cpp",
+    "prefix": "graph",
+    "description": "Read an undirected graph adjacency list",
+    "body": [
+      "int n, m;",
+      "cin >> n >> m;",
+      "vector<vector<int>> adj(n);",
+      "for (int i = 0; i < m; ++i) {",
+      "    int u, v;",
+      "    cin >> u >> v;",
+      "    --u; --v;",
+      "    adj[u].push_back(v);",
+      "    adj[v].push_back(u);",
+      "}"
+    ]
+  },
+  "BFS": {
+    "scope": "cpp",
+    "prefix": "bfs",
+    "description": "BFS with distance array",
+    "body": [
+      "vector<int> dist(n, -1);",
+      "queue<int> q;",
+      "dist[${1:start}] = 0;",
+      "q.push(${1:start});",
+      "",
+      "while (!q.empty()) {",
+      "    int u = q.front();",
+      "    q.pop();",
+      "",
+      "    for (int v : adj[u]) {",
+      "        if (dist[v] != -1) continue;",
+      "        dist[v] = dist[u] + 1;",
+      "        q.push(v);",
+      "    }",
+      "}"
+    ]
+  },
+  "DFS recursive": {
+    "scope": "cpp",
+    "prefix": "dfs",
+    "description": "Recursive DFS lambda",
+    "body": [
+      "vector<int> visited(n, 0);",
+      "function<void(int)> dfs = [&](int u) {",
+      "    visited[u] = 1;",
+      "    for (int v : adj[u]) {",
+      "        if (!visited[v]) {",
+      "            dfs(v);",
+      "        }",
+      "    }",
+      "};"
+    ]
+  },
+  "Union find": {
+    "scope": "cpp",
+    "prefix": "dsu",
+    "description": "Disjoint set union",
+    "body": [
+      "struct DSU {",
+      "    vector<int> parent, size;",
+      "",
+      "    explicit DSU(int n) : parent(n), size(n, 1) {",
+      "        iota(parent.begin(), parent.end(), 0);",
+      "    }",
+      "",
+      "    int find(int x) {",
+      "        if (parent[x] == x) return x;",
+      "        return parent[x] = find(parent[x]);",
+      "    }",
+      "",
+      "    bool unite(int a, int b) {",
+      "        a = find(a);",
+      "        b = find(b);",
+      "        if (a == b) return false;",
+      "        if (size[a] < size[b]) swap(a, b);",
+      "        parent[b] = a;",
+      "        size[a] += size[b];",
+      "        return true;",
+      "    }",
+      "};"
+    ]
+  },
+  "DP table": {
+    "scope": "cpp",
+    "prefix": "dp2",
+    "description": "2D DP table",
+    "body": [
+      "vector<vector<int>> dp(${1:n} + 1, vector<int>(${2:m} + 1, ${3:0}));",
+      "for (int i = 1; i <= ${1:n}; ++i) {",
+      "    for (int j = 1; j <= ${2:m}; ++j) {",
+      "        $0",
+      "    }",
+      "}"
+    ]
+  },
+  "Min priority queue": {
+    "scope": "cpp",
+    "prefix": "minpq",
+    "description": "Min heap priority queue",
+    "body": [
+      "priority_queue<${1:int}, vector<${1:int}>, greater<${1:int}>> pq;"
+    ]
+  },
+  "ADT interface": {
+    "scope": "cpp",
+    "prefix": "adt",
+    "description": "Abstract data type interface skeleton",
+    "body": [
+      "template <typename T>",
+      "class ${1:Name}ADT {",
+      "public:",
+      "    virtual ~${1:Name}ADT() = default;",
+      "    virtual void ${2:operation}(const T& ${3:item}) = 0;",
+      "    virtual bool empty() const = 0;",
+      "    virtual size_t size() const = 0;",
+      "};"
+    ]
+  },
+  "Struct model": {
+    "scope": "cpp",
+    "prefix": "model",
+    "description": "Simple domain model struct",
+    "body": [
+      "struct ${1:Item} {",
+      "    int ${2:id};",
+      "    string ${3:name};",
+      "};"
+    ]
+  }
+}
