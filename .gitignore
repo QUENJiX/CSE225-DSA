@@ -6,6 +6,10 @@
 *.obj
 *.pdb
 *.ilk
+bin/
+obj/
+*.depend
+*.layout
 
 # Local input/output scratch files
 output.txt
