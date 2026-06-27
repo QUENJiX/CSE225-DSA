@@ -31,29 +31,24 @@
 #include <iostream>
 using namespace std;
 
-dynArr::dynArr()
-{
-    data = NULL;
+dynArr::dynArr() {
+    data = nullptr;
     size = 0;
 }
 
-dynArr::dynArr(int s)
-{
+dynArr::dynArr(int s) {
     data = new int[s];
     size = s;
 }
 
-dynArr::~dynArr()
-{
+dynArr::~dynArr() {
     delete[] data;
 }
 
-int dynArr::getValue(int index)
-{
+int dynArr::getValue(int index) {
     return data[index];
 }
 
-void dynArr::setValue(int index, int value)
-{
+void dynArr::setValue(int index, int value) {
     data[index] = value;
 }

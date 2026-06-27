@@ -36,10 +36,10 @@ Class Complex
 #define COMPLEX_H
 
 class Complex {
-private:
+   private:
     double real, imaginary;
 
-public:
+   public:
     Complex();
     Complex(double r, double i);
 
@@ -50,4 +50,4 @@ public:
     void Print();
 };
 
-#endif // COMPLEX_H
+#endif  // COMPLEX_H

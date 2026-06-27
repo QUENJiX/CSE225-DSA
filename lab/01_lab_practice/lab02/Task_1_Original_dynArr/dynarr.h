@@ -26,13 +26,12 @@
 #ifndef DYNARR_H
 #define DYNARR_H
 
-class dynArr
-{
-private:
-    int *data;
+class dynArr {
+   private:
+    int* data;
     int size;
 
-public:
+   public:
     dynArr();
     dynArr(int s);
     ~dynArr();
@@ -40,4 +39,4 @@ public:
     int getValue(int index);
 };
 
-#endif // DYNARR_H
+#endif  // DYNARR_H

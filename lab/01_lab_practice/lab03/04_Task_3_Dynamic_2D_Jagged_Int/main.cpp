@@ -75,15 +75,13 @@ Pseudocode:
 #include <iostream>
 using namespace std;
 
-int main()
-{
+int main() {
     int rows;
 
     cout << "Enter number of rows: ";
     cin >> rows;
 
-    if (rows <= 0)
-    {
+    if (rows <= 0) {
         cout << "Rows must be positive." << endl;
         return 0;
     }
@@ -91,17 +89,14 @@ int main()
     int* columns = new int[rows];
     int** data = new int*[rows];
 
-    for (int i = 0; i < rows; i++)
-    {
+    for (int i = 0; i < rows; i++) {
         cout << "Enter number of elements in row " << i << ": ";
         cin >> columns[i];
 
-        if (columns[i] <= 0)
-        {
+        if (columns[i] <= 0) {
             cout << "Column count must be positive." << endl;
 
-            for (int j = 0; j < i; j++)
-            {
+            for (int j = 0; j < i; j++) {
                 delete[] data[j];
             }
 
@@ -114,28 +109,23 @@ int main()
         data[i] = new int[columns[i]];
     }
 
-    for (int i = 0; i < rows; i++)
-    {
+    for (int i = 0; i < rows; i++) {
         cout << "Enter " << columns[i] << " values for row " << i << ": ";
 
-        for (int j = 0; j < columns[i]; j++)
-        {
+        for (int j = 0; j < columns[i]; j++) {
             cin >> data[i][j];
         }
     }
 
     cout << "Jagged 2D array:" << endl;
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < columns[i]; j++)
-        {
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < columns[i]; j++) {
             cout << data[i][j] << " ";
         }
         cout << endl;
     }
 
-    for (int i = 0; i < rows; i++)
-    {
+    for (int i = 0; i < rows; i++) {
         delete[] data[i];
     }
     delete[] data;

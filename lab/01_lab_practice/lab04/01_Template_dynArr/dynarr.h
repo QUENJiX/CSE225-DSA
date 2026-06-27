@@ -78,11 +78,11 @@ using namespace std;
 
 template <class T>
 class dynArr {
-private:
+   private:
     T* data;
     int size;
 
-public:
+   public:
     dynArr();
     dynArr(int s);
     ~dynArr();
@@ -94,14 +94,14 @@ public:
 
 template <class T>
 dynArr<T>::dynArr() {
-    data = NULL;
+    data = nullptr;
     size = 0;
 }
 
 template <class T>
 dynArr<T>::dynArr(int s) {
     if (s <= 0) {
-        data = NULL;
+        data = nullptr;
         size = 0;
     } else {
         data = new T[s];
@@ -134,4 +134,4 @@ int dynArr<T>::getSize() const {
     return size;
 }
 
-#endif // DYNARR_H
+#endif  // DYNARR_H

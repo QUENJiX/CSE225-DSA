@@ -18,14 +18,14 @@ Pseudocode:
 #define BOX_H
 
 class Box {
-private:
+   private:
     double height;
     double width;
     double depth;
 
-public:
+   public:
     Box(double h, double w, double d);
     void volume() const;
 };
 
-#endif // BOX_H
+#endif  // BOX_H

@@ -42,15 +42,13 @@ Pseudocode:
 #include <iostream>
 using namespace std;
 
-int main()
-{
+int main() {
     int size;
 
     cout << "Enter array size: ";
     cin >> size;
 
-    if (size <= 0)
-    {
+    if (size <= 0) {
         cout << "Size must be positive." << endl;
         return 0;
     }
@@ -58,14 +56,12 @@ int main()
     int* arr = new int[size];
 
     cout << "Enter " << size << " integer values: ";
-    for (int i = 0; i < size; i++)
-    {
+    for (int i = 0; i < size; i++) {
         cin >> arr[i];
     }
 
     cout << "Array values: ";
-    for (int i = 0; i < size; i++)
-    {
+    for (int i = 0; i < size; i++) {
         cout << arr[i] << " ";
     }
     cout << endl;

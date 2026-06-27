@@ -31,15 +31,14 @@
 #ifndef DYNARR_H
 #define DYNARR_H
 
-class dynArr
-{
-private:
-    int **data;
+class dynArr {
+   private:
+    int** data;
     int rows;
     int cols;
     void clear();
 
-public:
+   public:
     dynArr();
     dynArr(int r, int c);
     ~dynArr();
@@ -50,4 +49,4 @@ public:
     int getCols();
 };
 
-#endif // DYNARR_H
+#endif  // DYNARR_H

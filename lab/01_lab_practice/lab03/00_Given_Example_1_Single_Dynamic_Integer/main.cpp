@@ -26,8 +26,7 @@ Pseudocode:
 #include <iostream>
 using namespace std;
 
-int main()
-{
+int main() {
     int* ptr = new int;
 
     *ptr = 10;

@@ -57,8 +57,7 @@ Pseudocode:
 #include <limits>
 using namespace std;
 
-int main()
-{
+int main() {
     int rows, columns;
 
     cout << "Enter number of rows: ";
@@ -67,37 +66,32 @@ int main()
     cout << "Enter maximum characters per row: ";
     cin >> columns;
 
-    if (rows <= 0 || columns <= 0)
-    {
+    if (rows <= 0 || columns <= 0) {
         cout << "Rows and columns must be positive." << endl;
         return 0;
     }
 
     char** words = new char*[rows];
 
-    for (int i = 0; i < rows; i++)
-    {
+    for (int i = 0; i < rows; i++) {
         words[i] = new char[columns + 1];
     }
 
     cout << "Enter one string for each row." << endl;
     cout << "Each string can contain at most " << columns << " characters." << endl;
 
-    for (int i = 0; i < rows; i++)
-    {
+    for (int i = 0; i < rows; i++) {
         cout << "Row " << i << ": ";
         cin >> setw(columns + 1) >> words[i];
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
     cout << "Stored strings:" << endl;
-    for (int i = 0; i < rows; i++)
-    {
+    for (int i = 0; i < rows; i++) {
         cout << words[i] << endl;
     }
 
-    for (int i = 0; i < rows; i++)
-    {
+    for (int i = 0; i < rows; i++) {
         delete[] words[i];
     }
     delete[] words;

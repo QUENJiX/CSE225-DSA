@@ -40,43 +40,36 @@
 #include <iostream>
 using namespace std;
 
-dynArr::dynArr()
-{
-    data = NULL;
+dynArr::dynArr() {
+    data = nullptr;
     size = 0;
 }
 
-dynArr::dynArr(int s)
-{
+dynArr::dynArr(int s) {
     data = new int[s];
     size = s;
 }
 
-dynArr::~dynArr()
-{
+dynArr::~dynArr() {
     delete[] data;
 }
 
-void dynArr::allocate(int s)
-{
-    if (s <= 0)
-    {
+void dynArr::allocate(int s) {
+    if (s <= 0) {
         delete[] data;
-        data = NULL;
+        data = nullptr;
         size = 0;
         return;
     }
 
-    int *newData = new int[s];
+    int* newData = new int[s];
     int limit = (s < size) ? s : size;
 
-    for (int i = 0; i < limit; i++)
-    {
+    for (int i = 0; i < limit; i++) {
         newData[i] = data[i];
     }
 
-    for (int i = limit; i < s; i++)
-    {
+    for (int i = limit; i < s; i++) {
         newData[i] = 0;
     }
 
@@ -85,17 +78,14 @@ void dynArr::allocate(int s)
     size = s;
 }
 
-int dynArr::getValue(int index)
-{
+int dynArr::getValue(int index) {
     return data[index];
 }
 
-void dynArr::setValue(int index, int value)
-{
+void dynArr::setValue(int index, int value) {
     data[index] = value;
 }
 
-int dynArr::getSize()
-{
+int dynArr::getSize() {
     return size;
 }
