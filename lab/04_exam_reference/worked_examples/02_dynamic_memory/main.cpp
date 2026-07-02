@@ -2,6 +2,79 @@
 #include <iostream>
 using namespace std;
 
+int* allocateIntArray(int size) {
+    if (size <= 0) {
+        return nullptr;
+    }
+    return new int[size];
+}
+
+void deleteIntArray(int*& arr) {
+    delete[] arr;
+    arr = nullptr;
+}
+
+char** allocateWords(int rows, int maxLength) {
+    if (rows <= 0 || maxLength <= 0) {
+        return nullptr;
+    }
+
+    char** words = new char*[rows];
+    for (int i = 0; i < rows; i++) {
+        words[i] = new char[maxLength + 1];
+    }
+    return words;
+}
+
+void deleteWords(char**& words, int rows) {
+    if (words == nullptr) {
+        return;
+    }
+
+    for (int i = 0; i < rows; i++) {
+        delete[] words[i];
+    }
+    delete[] words;
+    words = nullptr;
+}
+
+int** allocateJaggedIntArray(int rows, int*& cols) {
+    if (rows <= 0) {
+        cols = nullptr;
+        return nullptr;
+    }
+
+    cols = new int[rows];
+    int** data = new int*[rows];
+
+    for (int i = 0; i < rows; i++) {
+        cout << "Columns in row " << i << ": ";
+        cin >> cols[i];
+
+        if (cols[i] <= 0) {
+            cols[i] = 0;
+            data[i] = nullptr;
+        } else {
+            data[i] = new int[cols[i]];
+        }
+    }
+
+    return data;
+}
+
+void deleteJaggedIntArray(int**& data, int*& cols, int rows) {
+    if (data != nullptr) {
+        for (int i = 0; i < rows; i++) {
+            delete[] data[i];
+        }
+    }
+
+    delete[] data;
+    delete[] cols;
+    data = nullptr;
+    cols = nullptr;
+}
+
 void singleValue() {
     int* p = new int;
     *p = 10;
@@ -17,7 +90,11 @@ void dynamic1DArray() {
     cout << "Enter 1D array size: ";
     cin >> size;
 
-    int* arr = new int[size];
+    int* arr = allocateIntArray(size);
+    if (arr == nullptr) {
+        cout << "Invalid 1D array size" << endl;
+        return;
+    }
 
     cout << "Enter " << size << " integers: ";
     for (int i = 0; i < size; i++) {
@@ -30,23 +107,23 @@ void dynamic1DArray() {
     }
     cout << endl;
 
-    delete[] arr;
-    arr = nullptr;
+    deleteIntArray(arr);
 }
 
 void equalRowCharArray() {
-    int rows, cols;
+    int rows, maxLength;
     cout << "Enter rows and max word length: ";
-    cin >> rows >> cols;
+    cin >> rows >> maxLength;
 
-    char** words = new char*[rows];
-    for (int i = 0; i < rows; i++) {
-        words[i] = new char[cols + 1];
+    char** words = allocateWords(rows, maxLength);
+    if (words == nullptr) {
+        cout << "Invalid word array size" << endl;
+        return;
     }
 
     cout << "Enter " << rows << " words: ";
     for (int i = 0; i < rows; i++) {
-        cin >> setw(cols + 1) >> words[i];
+        cin >> setw(maxLength + 1) >> words[i];
     }
 
     cout << "Words:" << endl;
@@ -54,11 +131,7 @@ void equalRowCharArray() {
         cout << words[i] << endl;
     }
 
-    for (int i = 0; i < rows; i++) {
-        delete[] words[i];
-    }
-    delete[] words;
-    words = nullptr;
+    deleteWords(words, rows);
 }
 
 void jaggedIntArray() {
@@ -66,16 +139,19 @@ void jaggedIntArray() {
     cout << "Enter jagged row count: ";
     cin >> rows;
 
-    int* cols = new int[rows];
-    int** data = new int*[rows];
-
-    for (int i = 0; i < rows; i++) {
-        cout << "Columns in row " << i << ": ";
-        cin >> cols[i];
-        data[i] = new int[cols[i]];
+    int* cols = nullptr;
+    int** data = allocateJaggedIntArray(rows, cols);
+    if (data == nullptr) {
+        cout << "Invalid jagged row count" << endl;
+        return;
     }
 
     for (int i = 0; i < rows; i++) {
+        if (cols[i] == 0) {
+            cout << "Skipping empty row " << i << endl;
+            continue;
+        }
+
         cout << "Enter row " << i << ": ";
         for (int j = 0; j < cols[i]; j++) {
             cin >> data[i][j];
@@ -90,13 +166,7 @@ void jaggedIntArray() {
         cout << endl;
     }
 
-    for (int i = 0; i < rows; i++) {
-        delete[] data[i];
-    }
-    delete[] data;
-    delete[] cols;
-    data = nullptr;
-    cols = nullptr;
+    deleteJaggedIntArray(data, cols, rows);
 }
 
 int main() {

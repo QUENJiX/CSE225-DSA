@@ -30,8 +30,14 @@ bool UnsortedType<T>::IsFull() {
 }
 
 template <class T>
+bool UnsortedType<T>::IsEmpty() {
+    return currentSize == 0;
+}
+
+template <class T>
 void UnsortedType<T>::MakeEmpty() {
     currentSize = 0;
+    pointTo = -1;
 }
 
 template <class T>
@@ -47,6 +53,10 @@ void UnsortedType<T>::Insert(T value) {
 template <class T>
 void UnsortedType<T>::Search(T value, bool& found) {
     found = false;
+    if (IsEmpty()) {
+        return;
+    }
+
     int i = 0;
     while (i < currentSize) {
         if (data[i] == value) {
@@ -60,6 +70,11 @@ void UnsortedType<T>::Search(T value, bool& found) {
 
 template <class T>
 void UnsortedType<T>::Delete(T value) {
+    if (IsEmpty()) {
+        cout << "Error: List is empty" << endl;
+        return;
+    }
+
     bool found = false;
     int i = 0;
     while (i < currentSize) {
@@ -73,6 +88,9 @@ void UnsortedType<T>::Delete(T value) {
     if (found) {
         data[i] = data[currentSize - 1];
         currentSize--;
+        if (pointTo >= currentSize) {
+            pointTo = -1;
+        }
     } else {
         cout << "Error: Item could not be found in the list" << endl;
     }
@@ -80,6 +98,14 @@ void UnsortedType<T>::Delete(T value) {
 
 template <class T>
 void UnsortedType<T>::GetNext(T& value) {
+    if (IsEmpty()) {
+        cout << "Error: List is empty" << endl;
+        return;
+    }
+
+    if (pointTo + 1 >= currentSize) {
+        pointTo = -1;
+    }
     pointTo++;
     value = data[pointTo];
 }

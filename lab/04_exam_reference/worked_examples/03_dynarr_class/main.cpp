@@ -8,6 +8,10 @@ int main() {
     cin >> rows >> cols;
 
     dynArr matrix(rows, cols);
+    if (matrix.isEmpty()) {
+        cout << "Invalid matrix size" << endl;
+        return 0;
+    }
 
     cout << "Enter matrix values:" << endl;
     for (int i = 0; i < matrix.getRows(); i++) {
@@ -25,6 +29,13 @@ int main() {
         }
         cout << endl;
     }
+
+    matrix.setValue(-1, 0, 999);
+    cout << "Invalid read gives: " << matrix.getValue(-1, 0) << endl;
+
+    dynArr backup = matrix;
+    matrix.clear();
+    cout << "Backup still has " << backup.getRows() << " rows" << endl;
 
     return 0;
 }

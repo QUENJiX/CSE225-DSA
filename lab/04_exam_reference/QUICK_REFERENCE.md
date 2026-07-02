@@ -1,37 +1,55 @@
 # CSE225L Quick Reference - Labs 1-5
 
-Use this as the map. Use `COPY_PASTE_SNIPPETS.md` when you need the actual
-code block.
+## What This File Is Doing
 
-## Fast Index
+Use this file as the decision map during exam pressure. It tells you which
+pattern to use. Use `COPY_PASTE_SNIPPETS.md` when you need the actual code.
 
-| Need | Jump |
+Think of the files like this:
+
+| File/folder | Use it for |
 |---|---|
-| Exam workspace | `../exam_workspace/` |
-| 3-file class shape | [Class files](#class-files) |
-| Template class shape | [Template files](#template-files) |
-| `allocate(int s)` | [Allocate](#allocate) |
-| Raw `new` / `delete` | [Memory rules](#memory-rules) |
-| 1D / 2D / jagged arrays | [Array patterns](#array-patterns) |
-| `dynArr` class | [dynArr class](#dynarr-class) |
-| `dynArr<T>` template | [Template dynArr](#template-dynarr) |
-| Unsorted List ADT | [Unsorted list](#unsorted-list) |
-| Sorted List ADT | [Sorted list](#sorted-list) |
-| Student/custom object | [Custom object](#custom-object) |
-| Assessment 1 style | [Assessment 1 patterns](#assessment-1-patterns) |
+| `../exam_workspace/` | Current exam-day starter project |
+| `QUICK_REFERENCE.md` | Decide the pattern quickly |
+| `COPY_PASTE_SNIPPETS.md` | Paste code blocks |
+| `worked_examples/` | Full solved lab-style master problems |
+| `past_assessments/` | Previous exam style and solutions |
 
-## Class Files
+## Fast Exam Decisions
 
-Normal class questions usually mean:
+| Prompt says | Use this pattern |
+|---|---|
+| "main, source, header" | 3-file class answer |
+| "create object and member function" | Normal class |
+| "dynamic memory" | Raw `new`/`delete` helpers |
+| "default constructor then size from user" | `allocate(size)` |
+| "resize" | `clear()` then `allocate(newSize)` |
+| "2D same columns" | `int**` with one row allocation loop |
+| "different columns per row" | jagged `int**` plus `cols[]` |
+| "template class" | `template <class T>` `dynArr<T>` |
+| "template source file" | Put definitions in `.cpp`, include `.cpp` from `main.cpp` |
+| "unsorted delete" | Replace deleted item with last item |
+| "sorted insert/delete" | Shift elements to keep order |
+| "custom object in list" | Write `operator==`; add `<` or `>` for sorted list |
+
+## 3-File Class Shape
+
+Normal class question:
 
 ```text
-main.cpp      driver / input / calls
+main.cpp      input, output, object use
 thing.h       class declaration
 thing.cpp     member definitions
 ```
 
-Header contains fields and function prototypes. Source contains `ClassName::`
-definitions. `main.cpp` creates objects and calls functions.
+Header:
+- include guard
+- private data
+- public prototypes
+
+Source:
+- `#include "thing.h"`
+- `ClassName::functionName` definitions
 
 Compile:
 
@@ -41,14 +59,14 @@ g++ -std=c++17 -Wall main.cpp thing.cpp -o app
 
 Do not compile the header.
 
-## Template Files
+## Template File Shape
 
-Template questions can still use the lab split:
+Lab-style template question:
 
 ```text
-main.cpp      includes header and template source
-dynarr.h      template class declaration
-dynarr.cpp    template method definitions
+main.cpp       includes both files
+dynarr.h       template class declaration
+dynarr.cpp     template member definitions
 ```
 
 In `main.cpp`:
@@ -58,42 +76,64 @@ In `main.cpp`:
 #include "dynarr.cpp"
 ```
 
-Compile `main.cpp` only:
+Compile only `main.cpp`:
 
 ```bash
 g++ -std=c++17 -Wall main.cpp -o app
 ```
 
-## Allocate
+Reason: template bodies must be visible to the compiler when `dynArr<int>` or
+`dynArr<double>` is created.
 
-Use `allocate(int s)` when the question says resize, create after default
-constructor, or allocate using a user-provided size.
+## Allocate Pattern
 
-Core steps:
+Use a separate `allocate` function when:
 
-1. Free old memory.
-2. If size is invalid, set pointer to `nullptr` and size to `0`.
-3. Allocate new array.
-4. Save new size.
+- object starts empty and size comes later
+- question says resize
+- constructor should call shared allocation logic
+- you want one safe place for invalid size handling
 
-For a simple lab answer, not preserving old values is usually enough unless the
-question explicitly says "keep previous values".
+For 1D:
+
+```cpp
+void allocate(int s);
+void clear();
+```
+
+Core order:
+
+1. Delete old memory with `clear()`.
+2. If size is invalid, stay empty.
+3. Allocate new memory.
+4. Save the new size.
+
+For 2D:
+
+```cpp
+void allocate(int r, int c);
+void clear();
+```
+
+Core order:
+
+1. Delete each row.
+2. Delete the outer pointer.
+3. If rows or columns are invalid, stay empty.
+4. Allocate row pointers.
+5. Allocate each row.
 
 ## Memory Rules
 
-| You write | You must free with |
+| You write | You free with |
 |---|---|
 | `new int` | `delete p;` |
 | `new int[n]` | `delete[] arr;` |
-| `new int*[rows]` plus row arrays | delete each row, then `delete[] outer;` |
+| `new int*[rows]` and row arrays | delete each row, then `delete[] outer;` |
 
-Good habit after delete:
+After delete, set the pointer to `nullptr` when the pointer will still exist.
 
-```cpp
-p = nullptr;
-```
-
-## Array Patterns
+## Raw Array Patterns
 
 1D dynamic array:
 
@@ -101,7 +141,7 @@ p = nullptr;
 int* arr = new int[n];
 ```
 
-2D equal row array:
+2D equal-column matrix:
 
 ```cpp
 int** data = new int*[rows];
@@ -117,18 +157,18 @@ int* cols = new int[rows];
 int** data = new int*[rows];
 ```
 
-Character strings:
+Character word table:
 
 ```cpp
 char** words = new char*[rows];
-words[i] = new char[cols + 1];
+words[i] = new char[maxLength + 1];
 ```
 
-`cols + 1` is for the null character.
+The `+ 1` is for the null character.
 
 ## dynArr Class
 
-Use this for Lab 3 style questions. It is a class that owns dynamic memory.
+Use for Lab 3 style questions where a class owns dynamic memory.
 
 Common fields:
 
@@ -137,17 +177,7 @@ int* data;
 int size;
 ```
 
-Common functions:
-
-- default constructor
-- parameterized constructor
-- destructor
-- `allocate(int s)`
-- `setValue`
-- `getValue`
-- `getSize`
-
-If the lab asks for 2D, fields usually become:
+or for 2D:
 
 ```cpp
 int** data;
@@ -155,19 +185,28 @@ int rows;
 int cols;
 ```
 
+Useful member functions:
+
+- default constructor
+- parameterized constructor
+- destructor
+- `clear()`
+- `allocate(...)`
+- `setValue(...)`
+- `getValue(...)`
+- `getSize()` or `getRows()`/`getCols()`
+- `isEmpty()`
+
+If copying objects is possible, add:
+
+- copy constructor
+- assignment operator
+
 ## Template dynArr
 
-Use this for Lab 4 style questions. Convert the type from `int` to `T`.
+Use for Lab 4 template-class assessment.
 
-Change:
-
-```cpp
-int* data;
-void setValue(int index, int value);
-int getValue(int index);
-```
-
-To:
+Change concrete type to `T`:
 
 ```cpp
 T* data;
@@ -175,7 +214,7 @@ void setValue(int index, T value);
 T getValue(int index);
 ```
 
-Every source definition starts with:
+Every definition in `dynarr.cpp` starts with:
 
 ```cpp
 template <class T>
@@ -187,65 +226,58 @@ And uses:
 dynArr<T>::
 ```
 
+Stay with `dynArr<T>` unless the question specifically teaches another template
+class. No operator-heavy template detour is needed for your current assessment
+style.
+
 ## Unsorted List
 
-Unsorted list operations:
+Unsorted list behavior:
 
-- `Insert`: append at `currentSize`
-- `Search`: linear scan
-- `Delete`: find item, replace it with last item, reduce size
+- `Insert`: put item at `currentSize`
+- `Search`: scan from first to last
+- `Delete`: find item, replace it with the last item, reduce size
 - `Reset`: set cursor to `-1`
-- `GetNext`: advance cursor and return item
+- `GetNext`: move cursor and return item
 
-Important: delete does not preserve order.
+Important: unsorted delete does not preserve order.
+
+Use this when the prompt does not say the list must stay sorted.
 
 ## Sorted List
 
-Sorted list operations are similar, but `Insert` keeps order.
+Sorted list behavior:
 
-Typical sorted insert:
+- `Insert`: find correct location, shift right, insert
+- `Search`: stop early when current item becomes bigger than target
+- `Delete`: find item, shift left, reduce size
 
-1. Find the first position where `data[pos] > item`.
-2. Shift elements right.
-3. Put item in the hole.
-4. Increase size.
+Important: sorted delete preserves order.
 
-Typical sorted search can stop early when `data[i] > item`.
-
-This may appear as a later list variant. Keep the pattern handy.
+Use this when the prompt says ascending, sorted, ordered, or binary/early search
+style.
 
 ## Custom Object
 
-For a custom object inside an ADT, usually write:
+For a custom object inside an ADT:
 
 - default constructor
 - parameterized constructor
 - `operator==` for search/delete
-- `operator>` or `operator<` for sorted insert/search
-- `Print()`
+- `operator<` or `operator>` for sorted list
+- `Print()` for output
 
 For `Student`, compare by ID unless the question says otherwise.
 
-## Assessment 1 Patterns
+## Exam Hall Checklist
 
-Q1: one input, one branch, first true condition wins.
+Before submitting:
 
-Q2: raw `int**`, print rows in reverse:
-
-```cpp
-for (int i = rows - 1; i >= 0; i--) {
-    for (int j = 0; j < cols; j++) {
-        cout << data[i][j] << " ";
-    }
-    cout << endl;
-}
-```
-
-Q3: given header/source, add one member:
-
-1. Add prototype in `.h`.
-2. Add `ClassName::functionName` body in `.cpp`.
-3. Call from `main.cpp`.
-
-If the question says the function returns something, use that return type even
-if the prompt accidentally writes `void`.
+1. Did every `new[]` have a matching `delete[]`?
+2. Did every `new` have a matching `delete`?
+3. Did constructors initialize pointers to `nullptr`?
+4. Did `allocate` handle invalid sizes?
+5. Did `setValue` and `getValue` avoid invalid indexes?
+6. Did template definitions stay visible by including the `.cpp` in `main.cpp`?
+7. Did custom objects define the operators the list uses?
+8. Did sorted operations shift, and unsorted delete swap with last?

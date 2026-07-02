@@ -20,17 +20,23 @@ Private data:
 Public functions:
 - default constructor
 - parameterized constructor `dynArr(int r, int c)`
+- copy constructor
 - destructor
+- assignment operator
+- `clear()`
 - `allocate(int r, int c)`
 - `setValue(int row, int col, int value)`
 - `getValue(int row, int col)`
 - `getRows()`
 - `getCols()`
+- `isEmpty()`
 
 ## Driver
 
 In `main.cpp`, read row and column counts, create a `dynArr`, input all values,
-and print the matrix.
+and print the matrix. Also show invalid-index access, copying, and `clear()`.
+
+The class should handle invalid row/column counts by becoming empty.
 
 ## Build
 

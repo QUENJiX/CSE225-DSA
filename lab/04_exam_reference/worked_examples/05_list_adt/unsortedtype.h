@@ -19,6 +19,7 @@ class UnsortedType {
     ~UnsortedType();
     int Length();
     bool IsFull();
+    bool IsEmpty();
     void MakeEmpty();
     void Insert(T value);
     void Search(T value, bool& found);

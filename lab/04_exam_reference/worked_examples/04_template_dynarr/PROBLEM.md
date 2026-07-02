@@ -20,10 +20,15 @@ Private data:
 Public functions:
 - default constructor
 - parameterized constructor `dynArr(int s)`
+- copy constructor
 - destructor
+- assignment operator
+- `clear()`
+- `allocate(int s)`
 - `setValue(int index, T value)`
 - `getValue(int index)`
 - `getSize()`
+- `isEmpty()`
 
 ## Driver
 
@@ -31,6 +36,9 @@ In `main.cpp`, create and test:
 
 1. `dynArr<int>`
 2. `dynArr<double>`
+3. invalid indexes
+4. copy constructor behavior
+5. `clear()`
 
 Because this is a template and the definitions are in `dynarr.cpp`, include both
 files in `main.cpp`:

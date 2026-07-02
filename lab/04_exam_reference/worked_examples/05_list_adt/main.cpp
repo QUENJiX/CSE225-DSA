@@ -60,6 +60,8 @@ int main() {
     numbers.Insert(7);
     numbers.Insert(6);
     numbers.Insert(9);
+    numbers.Insert(11);
+    numbers.Insert(13);
 
     cout << "Numbers: ";
     printIntList(numbers);
@@ -71,6 +73,7 @@ int main() {
     numbers.Delete(7);
     cout << "After deleting 7: ";
     printIntList(numbers);
+    numbers.Delete(100);
 
     UnsortedType<Student> students;
     students.Insert(Student(15234, "Rahim", 3.45));
@@ -81,6 +84,9 @@ int main() {
 
     cout << "Students after deleting ID 15467:" << endl;
     printStudentList(students);
+
+    students.MakeEmpty();
+    cout << "Students empty: " << (students.IsEmpty() ? "yes" : "no") << endl;
 
     return 0;
 }
