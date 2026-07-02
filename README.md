@@ -27,7 +27,7 @@ This workspace is set up for a low-friction CSE225 semester: quick compile/run/d
 - `08_graphs/` - BFS, DFS, shortest paths, MST, topological sort.
 - `09_dynamic_programming/` - memoization, tabulation, common DP shapes.
 - `10_problem_solving/` - solved problems, contest files, and pattern notes.
-- `lab/` - CSE225L notes, practice, submissions, and assessment rebuilds.
+- `lab/` - CSE225L notes, practice, submissions, assessment rebuilds, and the exam workspace/reference.
 - `templates/` - starter templates for problems, classes, and algorithm notes.
 - `resources/` - cheat sheets, syllabus alignment, data-structure decision guide, debugging checklist, and book tracker.
 - `playground/` - scratch experiments that do not need to be polished.
