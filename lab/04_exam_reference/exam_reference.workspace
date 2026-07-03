@@ -10,5 +10,6 @@
 		<Project filename="worked_examples/03_dynarr_class/03_dynarr_class.cbp" />
 		<Project filename="worked_examples/04_template_dynarr/04_template_dynarr.cbp" />
 		<Project filename="worked_examples/05_list_adt/05_list_adt.cbp" />
+		<Project filename="worked_examples/06_sorted_list_adt/06_sorted_list_adt.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

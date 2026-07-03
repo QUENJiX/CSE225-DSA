@@ -1,4 +1,4 @@
-# Copy-Paste Snippets - Labs 1-5
+# Copy-Paste Snippets - Labs 1-6
 
 Use this as the code bank. Copy only the block you need, then rename class,
 file, and variable names to match the question.
@@ -933,6 +933,82 @@ class Student {
         cout << id << ", " << name << ", " << cgpa << endl;
     }
 };
+```
+
+## timeStamp For SortedType
+
+```cpp
+#include <iomanip>
+#include <iostream>
+using namespace std;
+
+class timeStamp {
+   private:
+    int seconds;
+    int minutes;
+    int hours;
+
+    int totalSeconds() const {
+        return hours * 3600 + minutes * 60 + seconds;
+    }
+
+   public:
+    timeStamp() {
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+    }
+
+    timeStamp(int s, int m, int h) {
+        seconds = s;
+        minutes = m;
+        hours = h;
+    }
+
+    bool operator==(const timeStamp& other) const {
+        return totalSeconds() == other.totalSeconds();
+    }
+
+    bool operator<(const timeStamp& other) const {
+        return totalSeconds() < other.totalSeconds();
+    }
+
+    bool operator>(const timeStamp& other) const {
+        return totalSeconds() > other.totalSeconds();
+    }
+
+    void Print() const {
+        cout << setw(2) << setfill('0') << seconds << ": "
+             << setw(2) << minutes << ": "
+             << setw(2) << hours << setfill(' ') << endl;
+    }
+};
+```
+
+## SortedType Driver Pattern
+
+```cpp
+SortedType<int> numbers;
+
+numbers.Insert(5);
+numbers.Insert(4);
+numbers.Insert(2);
+numbers.Insert(1);
+numbers.Insert(7);
+
+bool found;
+numbers.Search(5, found);
+cout << (found ? "Item is found" : "Item is not found") << endl;
+
+numbers.Delete(4);
+
+int item;
+numbers.Reset();
+for (int i = 0; i < numbers.Length(); i++) {
+    numbers.GetNext(item);
+    cout << item << " ";
+}
+cout << endl;
 ```
 
 ## Template Driver Example
