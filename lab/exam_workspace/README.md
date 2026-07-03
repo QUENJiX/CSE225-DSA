@@ -1,29 +1,29 @@
-# Exam Workspace - Adaptive Lab 3/4 Starter
+# Exam Workspace - Lab 5 Assessment Starter
 
-Use this when the assessment is about `dynArr`, dynamic arrays, or template
-classes. It is not a solved answer; it is a clean starting point.
+Use this for the Lab 5 assessment on array-based `UnsortedType<T>`.
+For your assessment on July 5, 2026, this folder is the clean project to open
+first.
 
 ## What Is Ready
 
-- 3-file structure: `main.cpp`, `solution.h`, `solution.cpp`
-- template `dynArr<T>`
+- 3-file structure: `main.cpp`, `unsortedtype.h`, `unsortedtype.cpp`
+- template `UnsortedType<T>`
 - default constructor
-- parameterized constructor
-- copy constructor and assignment operator
 - destructor
-- `clear()`
-- `allocate(int s)`
-- `setValue`, `getValue`, `getSize`, `isEmpty`
-- small driver helpers for reading, printing, counting, and first-index search
+- `Length`, `IsFull`, `IsEmpty`, `MakeEmpty`
+- `Insert`, `Search`, `Delete`
+- `Reset`, `GetNext`
+- integer list driver
+- custom `Student` object driver
 
 ## Template Split
 
-Definitions stay in `solution.cpp` to match the lab style. Because templates must
-be visible when used, `main.cpp` includes the source file:
+Definitions stay in `unsortedtype.cpp` to match the lab style. Because templates
+must be visible when used, `main.cpp` includes the source file:
 
 ```cpp
-#include "solution.h"
-#include "solution.cpp"
+#include "unsortedtype.h"
+#include "unsortedtype.cpp"
 ```
 
 Compile only `main.cpp`:
@@ -34,18 +34,18 @@ g++ -std=c++17 -Wall main.cpp -o app
 
 ## Fast Exam Edits
 
-- Need `double`? Change `dynArr<int>` and `int value` to `double`.
-- Need a parameterized constructor? Use `dynArr<int> arr(n);`.
-- Need default constructor + allocation? Keep `dynArr<int> arr; arr.allocate(n);`.
-- Need only storage? Delete the helper functions in `main.cpp` and keep the class.
-- Need search/count? Keep `countValue` or `findFirstIndex`.
-- Need to resize? Call `arr.allocate(newSize);`. It safely clears the old memory.
-- Need to empty the array? Call `arr.clear();`.
-- Need raw `int*` or `int**` instead? Copy from `../04_exam_reference/COPY_PASTE_SNIPPETS.md`.
+- Need only integers? Keep `UnsortedType<int>` and delete the `Student` part.
+- Need a custom class? Rename `Student`, change fields, keep `operator==`.
+- Need search/delete by ID? Create a temporary object with only the ID filled.
+- Need print traversal? Use `Reset()` before the `GetNext()` loop.
+- Need full-list behavior? Keep `IsFull()` before or inside insert.
+- If the instructor gives `unsortedtype.h/.cpp`, do not edit them unless asked.
 
 ## Edge-Case Habits
 
-- Invalid size becomes an empty array.
-- Invalid index is ignored for `setValue`.
-- Invalid index returns `T()` for `getValue`.
-- Copying creates a separate array, so changing the copy does not change the original.
+- Insert into a full list prints an error and does not change length.
+- Search sets `found` to `false` first.
+- Delete from an unsorted list replaces the removed item with the last item.
+- Delete does not preserve order.
+- `MakeEmpty()` should reset both length and traversal cursor.
+- `Reset()` should happen before every traversal loop.

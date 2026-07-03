@@ -1,4 +1,4 @@
-# CSE225L Quick Reference - Labs 1-5
+# CSE225L Quick Reference - Labs 1-6
 
 ## What This File Is Doing
 
@@ -30,6 +30,7 @@ Think of the files like this:
 | "template source file" | Put definitions in `.cpp`, include `.cpp` from `main.cpp` |
 | "unsorted delete" | Replace deleted item with last item |
 | "sorted insert/delete" | Shift elements to keep order |
+| "timeStamp list" | `SortedType<timeStamp>` with `<`, `>`, and `==` |
 | "custom object in list" | Write `operator==`; add `<` or `>` for sorted list |
 
 ## 3-File Class Shape
@@ -257,6 +258,11 @@ Important: sorted delete preserves order.
 Use this when the prompt says ascending, sorted, ordered, or binary/early search
 style.
 
+Lab 6 uses `SortedType<T>`. For integers, sorted order is normal ascending
+number order. For `timeStamp`, compare by actual time of day: hours first, then
+minutes, then seconds, even though the manual inputs values as
+`seconds minutes hours`.
+
 ## Custom Object
 
 For a custom object inside an ADT:
@@ -268,6 +274,9 @@ For a custom object inside an ADT:
 - `Print()` for output
 
 For `Student`, compare by ID unless the question says otherwise.
+
+For Lab 6 `timeStamp`, write `operator==`, `operator<`, and `operator>` because
+sorted insert/search depend on comparisons.
 
 ## Exam Hall Checklist
 

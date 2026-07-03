@@ -1,4 +1,4 @@
-# CSE225L Exam Reference - Labs 1-5
+# CSE225L Exam Reference - Labs 1-6
 
 Use this folder before the exam. During the exam, code in
 [`../exam_workspace/`](../exam_workspace/).
@@ -23,6 +23,7 @@ split, and usage.
 | `worked_examples/03_dynarr_class/` | Lab 3: non-template `dynArr` class with dynamic 2D memory |
 | `worked_examples/04_template_dynarr/` | Lab 4: template `dynArr<T>` only |
 | `worked_examples/05_list_adt/` | Lab 5: `UnsortedType<T>` with `int` and `Student` |
+| `worked_examples/06_sorted_list_adt/` | Lab 6: `SortedType<T>` with `int` and `timeStamp` |
 
 ## Code::Blocks
 
