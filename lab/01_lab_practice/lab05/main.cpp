@@ -1,142 +1,117 @@
 #include <iostream>
-#include <string>
+#include "student.h"
 #include "unsortedtype.h"
-#include "unsortedtype.cpp"   // Needed because UnsortedType is a template class.
+#include "unsortedtype.cpp"
 using namespace std;
 
-class Student
-{
-private:
-    int id;
-    string name;
-    double cgpa;
-
-public:
-    Student()
-    {
-        id = 0;
-        name = "";
-        cgpa = 0.0;
-    }
-
-    Student(int studentId, string studentName, double studentCgpa)
-    {
-        id = studentId;
-        name = studentName;
-        cgpa = studentCgpa;
-    }
-
-    bool operator==(const Student &other) const
-    {
-        return id == other.id;
-    }
-
-    void Print() const
-    {
-        cout << id << ", " << name << ", " << cgpa << endl;
-    }
-};
-
-void PrintIntegerList(UnsortedType<int> &list)
-{
-    int item;
+void PrintIntegerList(UnsortedType<int>& list) {
+    int value;
     list.Reset();
-
-    for (int i = 0; i < list.Length(); i++)
-    {
-        list.GetNext(item);
-        cout << item << " ";
+    for (int i = 0; i < list.Length(); i++) {
+        list.GetNext(value);
+        cout << value << " ";
     }
     cout << endl;
 }
 
-void PrintStudentList(UnsortedType<Student> &list)
-{
+void PrintSearchResult( UnsortedType<int>& list, int searchValue) {
+    bool found;
+    list.Search(searchValue, found);
+    if (found) {
+        cout << "Item is found" << endl;
+    }
+    else {
+        cout << "Item is not found" << endl;
+    }
+}
+
+void PrintFullStatus(UnsortedType<int>& list) {
+    if (list.IsFull()) {
+        cout << "List is full" << endl;
+    }
+    else {
+        cout << "List is not full" << endl;
+    }
+}
+
+void PrintStudentList(UnsortedType<Student>& list) {
     Student student;
     list.Reset();
-
-    for (int i = 0; i < list.Length(); i++)
-    {
+    for (int i = 0; i < list.Length(); i++) {
         list.GetNext(student);
         student.Print();
     }
 }
 
-void PrintSearchResult(UnsortedType<int> &list, int item)
-{
-    bool found;
-    list.Search(item, found);
+int main() {
+    cout << "INTEGER LIST" << endl;
+    cout << "------------" << endl;
 
-    if (found)
-    {
-        cout << "Item is found" << endl;
-    }
-    else
-    {
-        cout << "Item is not found" << endl;
-    }
-}
+    UnsortedType<int> numbers;
+    numbers.Insert(5);
+    numbers.Insert(7);
+    numbers.Insert(6);
+    numbers.Insert(9);
 
-void PrintFullStatus(UnsortedType<int> &list)
-{
-    if (list.IsFull())
-    {
-        cout << "List is full" << endl;
-    }
-    else
-    {
-        cout << "List is not full" << endl;
-    }
-}
+    cout << "List: ";
+    PrintIntegerList(numbers);
 
-int main()
-{
-    UnsortedType<int> intList;
+    cout << "Length: " << numbers.Length() << endl;
+    numbers.Insert(1);
+    // The list is full, so this produces an error.
+    numbers.Insert(12);
 
-    intList.Insert(5);
-    intList.Insert(7);
-    intList.Insert(6);
-    intList.Insert(9);
+    cout << "List: ";
+    PrintIntegerList(numbers);
+    cout << "Search for 4: ";
+    PrintSearchResult(numbers, 4);
+    cout << "Search for 5: ";
+    PrintSearchResult(numbers, 5);
+    cout << "Search for 9: ";
+    PrintSearchResult(numbers, 9);
+    cout << "Search for 10: ";
+    PrintSearchResult(numbers, 10);
+    PrintFullStatus(numbers);
 
-    PrintIntegerList(intList);
-    cout << intList.Length() << endl;
+    // [5, 7, 6, 9, 1]
+    // Delete 5 by replacing it with the final item, 1.
+    numbers.Delete(5);
+    PrintFullStatus(numbers);
+    cout << "After deleting 5: ";
+    PrintIntegerList(numbers);
+    // [1, 7, 6, 9]
 
-    intList.Insert(1);
-    intList.Insert(12);
+    // Delete 1 by replacing it with 9.
+    numbers.Delete(1);
+    cout << "After deleting 1: ";
+    PrintIntegerList(numbers);
+    // [9, 7, 6]
 
-    PrintIntegerList(intList);
+    numbers.Delete(6);
+    cout << "After deleting 6: ";
+    PrintIntegerList(numbers);
 
-    PrintSearchResult(intList, 4);
-    PrintSearchResult(intList, 5);
-    PrintSearchResult(intList, 9);
-    PrintSearchResult(intList, 10);
+    // 16 is not in the list.
+    numbers.Delete(16);
 
-    PrintFullStatus(intList);
-
-    intList.Delete(5);
-    PrintFullStatus(intList);
-    PrintIntegerList(intList);
-
-    intList.Delete(1);
-    PrintIntegerList(intList);
-
-    intList.Delete(6);
-    PrintIntegerList(intList);
-
-    intList.Delete(16);
-
+    // Part 2: Student list
     cout << endl;
+    cout << "STUDENT LIST" << endl;
+    cout << "------------" << endl;
 
-    UnsortedType<Student> studentList;
+    UnsortedType<Student> students;
+    students.Insert(Student(15234, "Jon", 2.6));
+    students.Insert(Student(13732, "Tyrion", 3.9));
+    students.Insert(Student(13569, "Sandor", 1.2));
+    students.Insert(Student(15467, "Ramsey", 3.8));
+    students.Insert(Student(16285, "Arya", 3.1));
 
-    studentList.Insert(Student(15234, "Jon", 2.6));
-    studentList.Insert(Student(13732, "Tyrion", 3.9));
-    studentList.Insert(Student(13569, "Sandor", 1.2));
-    studentList.Insert(Student(15467, "Ramsey", 3.8));
-    studentList.Insert(Student(16285, "Arya", 3.1));
-
-    studentList.Delete(Student(15467, "", 0.0));
-    PrintStudentList(studentList);
-
+    cout << "Original student list:" << endl;
+    PrintStudentList(students);
+    Student studentToDelete(15467, "", 0.0);
+    students.Delete(studentToDelete);
+    cout << endl;
+    cout << "After deleting student 15467:" << endl;
+    PrintStudentList(students);
     return 0;
 }

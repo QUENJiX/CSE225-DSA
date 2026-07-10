@@ -8,7 +8,6 @@ class Complex {
    public:
     Complex();
     Complex(double r, double i);
-
     Complex operator+(Complex a);
     Complex operator*(Complex a);
     bool operator!=(Complex a);

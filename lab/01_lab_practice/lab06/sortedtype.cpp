@@ -1,5 +1,6 @@
 #include "sortedtype.h"
 #include <iostream>
+
 using namespace std;
 
 template <class T>
@@ -27,44 +28,56 @@ bool SortedType<T>::IsFull() {
 template <class T>
 void SortedType<T>::MakeEmpty() {
     currentSize = 0;
-    pointTo = -1;
 }
 
 template <class T>
 void SortedType<T>::Insert(T value) {
     if (IsFull()) {
         cout << "Error: List is full" << endl;
-        return;
     }
+    else {
+        int i = 0;
 
-    int location = 0;
-    while (location < currentSize && value > data[location]) {
-        location++;
+        // Find the position where value belongs.
+        while (i < currentSize) {
+            if (value > data[i]) {
+                i++;
+            }
+            else {
+                // Shift items right to create an empty position.
+                for (int j = currentSize; j > i; j--) {
+                    data[j] = data[j - 1];
+                }
+
+                break;
+            }
+        }
+
+        data[i] = value;
+        currentSize++;
     }
-
-    for (int i = currentSize; i > location; i--) {
-        data[i] = data[i - 1];
-    }
-
-    data[location] = value;
-    currentSize++;
 }
 
 template <class T>
 void SortedType<T>::Search(T value, bool& found) {
+    int midPoint;
     int first = 0;
     int last = currentSize - 1;
+
     found = false;
 
     while (first <= last) {
-        int midPoint = (first + last) / 2;
+        midPoint = (first + last) / 2;
 
         if (value < data[midPoint]) {
             last = midPoint - 1;
-        } else if (value > data[midPoint]) {
+        }
+        else if (value > data[midPoint]) {
             first = midPoint + 1;
-        } else {
+        }
+        else {
             found = true;
+            value = data[midPoint];
             break;
         }
     }
@@ -73,28 +86,30 @@ void SortedType<T>::Search(T value, bool& found) {
 template <class T>
 void SortedType<T>::Delete(T value) {
     bool found = false;
-    int location = 0;
+    int i = 0;
 
-    while (location < currentSize) {
-        if (data[location] == value) {
+    // Find the item.
+    while (i < currentSize) {
+        if (data[i] == value) {
             found = true;
             break;
         }
-        location++;
+
+        i++;
     }
 
-    if (!found) {
-        cout << "Error: Item could not be found in the list" << endl;
-        return;
-    }
+    if (found) {
+        // Shift later items one position left.
+        while (i < currentSize - 1) {
+            data[i] = data[i + 1];
+            i++;
+        }
 
-    for (int i = location; i < currentSize - 1; i++) {
-        data[i] = data[i + 1];
+        currentSize--;
     }
-
-    currentSize--;
-    if (pointTo >= currentSize) {
-        pointTo = -1;
+    else {
+        cout << "Error: Item could not be found in the list"
+            << endl;
     }
 }
 

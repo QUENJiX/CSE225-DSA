@@ -8,7 +8,6 @@ int main() {
 
     cout << "First complex number: ";
     c1.Print();
-
     cout << "Second complex number: ";
     c2.Print();
 
