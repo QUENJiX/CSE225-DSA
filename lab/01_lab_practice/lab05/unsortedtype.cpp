@@ -75,7 +75,7 @@ void UnsortedType<T>::Delete(T value) {
     }
     else {
         cout << "Error: Item could not be found in the list"
-             << endl;
+            << endl;
     }
 }
 

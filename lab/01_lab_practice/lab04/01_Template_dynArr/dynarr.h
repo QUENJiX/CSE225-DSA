@@ -3,11 +3,11 @@
 
 template <class T>
 class dynArr {
-   private:
+private:
     T* data;
     int size;
 
-   public:
+public:
     dynArr();
     dynArr(int s);
     ~dynArr();

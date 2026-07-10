@@ -2,11 +2,11 @@
 #define DYNARR_H
 
 class dynArr {
-   private:
+private:
     int* data;
     int size;
 
-   public:
+public:
     dynArr();
     dynArr(int s);
     ~dynArr();

@@ -2,10 +2,10 @@
 #define COMPLEX_H
 
 class Complex {
-   private:
+private:
     double real, imaginary;
 
-   public:
+public:
     Complex();
     Complex(double r, double i);
     Complex operator+(Complex a);
