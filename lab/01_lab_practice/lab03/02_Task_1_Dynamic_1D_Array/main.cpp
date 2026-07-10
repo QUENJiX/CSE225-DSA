@@ -48,11 +48,6 @@ int main() {
     cout << "Enter array size: ";
     cin >> size;
 
-    if (size <= 0) {
-        cout << "Size must be positive." << endl;
-        return 0;
-    }
-
     int* arr = new int[size];
 
     cout << "Enter " << size << " integer values: ";
