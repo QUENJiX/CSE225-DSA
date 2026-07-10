@@ -1,51 +1,55 @@
-# Exam Workspace - Lab 5 Assessment Starter
+# Lab 5 + Lab 6 Assessment Workspace
 
-Use this for the Lab 5 assessment on array-based `UnsortedType<T>`.
-For your assessment on July 5, 2026, this folder is the clean project to open
-first.
+This is one ready-to-run project for both array-based template ADTs:
 
-## What Is Ready
+- `UnsortedType<T>` from Lab 5
+- `SortedType<T>` from Lab 6
+- `Book` as an equality-based custom type
+- `Appointment` as an ordered custom type
+- one `main.cpp` demonstrating integers and custom objects
 
-- 3-file structure: `main.cpp`, `unsortedtype.h`, `unsortedtype.cpp`
-- template `UnsortedType<T>`
-- default constructor
-- destructor
-- `Length`, `IsFull`, `IsEmpty`, `MakeEmpty`
-- `Insert`, `Search`, `Delete`
-- `Reset`, `GetNext`
-- integer list driver
-- custom `Student` object driver
+## Files to Know
 
-## Template Split
+| Files | Assessment concept |
+|---|---|
+| `unsortedtype.h/.cpp` | template, linear search, last-item replacement delete |
+| `sortedtype.h/.cpp` | template, sorted insertion, binary search, shifting delete |
+| `book.h/.cpp` | constructors and `==`, `!=` overloads |
+| `appointment.h/.cpp` | constructors and `<`, `>`, `==` overloads |
+| `main.cpp` | traversal, search, delete, and both custom object lists |
 
-Definitions stay in `unsortedtype.cpp` to match the lab style. Because templates
-must be visible when used, `main.cpp` includes the source file:
+## Build
 
-```cpp
-#include "unsortedtype.h"
-#include "unsortedtype.cpp"
-```
-
-Compile only `main.cpp`:
+From this folder:
 
 ```bash
-g++ -std=c++17 -Wall main.cpp -o app
+g++ -std=c++17 -Wall -Wextra -pedantic main.cpp book.cpp appointment.cpp -o exam_app
+./exam_app
 ```
 
-## Fast Exam Edits
+The template implementation files are included by `main.cpp`, so do **not** add
+`unsortedtype.cpp` or `sortedtype.cpp` to the compile command.
 
-- Need only integers? Keep `UnsortedType<int>` and delete the `Student` part.
-- Need a custom class? Rename `Student`, change fields, keep `operator==`.
-- Need search/delete by ID? Create a temporary object with only the ID filled.
-- Need print traversal? Use `Reset()` before the `GetNext()` loop.
-- Need full-list behavior? Keep `IsFull()` before or inside insert.
-- If the instructor gives `unsortedtype.h/.cpp`, do not edit them unless asked.
+For Code::Blocks, run `python make_cbp.py`, open `exam_workspace.cbp`, and press
+F9. The generated project handles the template source files correctly.
 
-## Edge-Case Habits
+## Fast Assessment Adaptation
 
-- Insert into a full list prints an error and does not change length.
-- Search sets `found` to `false` first.
-- Delete from an unsorted list replaces the removed item with the last item.
-- Delete does not preserve order.
-- `MakeEmpty()` should reset both length and traversal cursor.
-- `Reset()` should happen before every traversal loop.
+1. Replace the sample values in `main.cpp` with the question's values.
+2. Rename `Book` or `Appointment` if the question gives another domain class.
+3. For an unsorted custom object, overload `==` for search/delete.
+4. For a sorted custom object, overload `<`, `>`, and `==` using the field that
+   defines ordering.
+5. Call `Reset()` before every traversal using `GetNext()`.
+
+## Behaviors to Remember
+
+- Unsorted insert appends at the end.
+- Unsorted search is linear: `O(n)`.
+- Unsorted delete replaces the deleted slot with the last item: `O(n)` search,
+  then `O(1)` removal; original order is not preserved.
+- Sorted insert shifts items right: `O(n)`.
+- Sorted search uses binary search: `O(log n)`.
+- Sorted delete shifts items left: `O(n)`; sorted order is preserved.
+- A template's method definitions must be visible where the template is used.
+- Both lists have capacity 5 to match the labs.

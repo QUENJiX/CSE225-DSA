@@ -9,7 +9,7 @@ using namespace std;
 
 template <class T>
 UnsortedType<T>::UnsortedType() {
-    data = new T[SIZE];
+    data = new T[UNSORTED_CAPACITY];
     currentSize = 0;
     pointTo = -1;
 }
@@ -26,7 +26,7 @@ int UnsortedType<T>::Length() {
 
 template <class T>
 bool UnsortedType<T>::IsFull() {
-    return currentSize == SIZE;
+    return currentSize == UNSORTED_CAPACITY;
 }
 
 template <class T>
@@ -41,7 +41,7 @@ void UnsortedType<T>::MakeEmpty() {
 }
 
 template <class T>
-void UnsortedType<T>::Insert(T value) {
+void UnsortedType<T>::Insert(const T& value) {
     if (IsFull()) {
         cout << "Error: List is full" << endl;
         return;
@@ -52,7 +52,7 @@ void UnsortedType<T>::Insert(T value) {
 }
 
 template <class T>
-void UnsortedType<T>::Search(T value, bool& found) {
+void UnsortedType<T>::Search(const T& value, bool& found) const {
     found = false;
 
     for (int i = 0; i < currentSize; i++) {
@@ -64,7 +64,7 @@ void UnsortedType<T>::Search(T value, bool& found) {
 }
 
 template <class T>
-void UnsortedType<T>::Delete(T value) {
+void UnsortedType<T>::Delete(const T& value) {
     if (IsEmpty()) {
         cout << "Error: List is empty" << endl;
         return;

@@ -1,51 +1,23 @@
 /*
-    Exam starter for Lab 5: array-based UnsortedType<T>.
+    Assessment workspace for Lab 5 and Lab 6.
 
-    Fast swaps:
-    - Change int operations to the values from the question.
-    - Replace Student with Book/Employee/Course if the custom object changes.
-    - For unsorted delete, order is not preserved: deleted slot gets last item.
+    Template rule: include each template .cpp below. Compile main.cpp together
+    with book.cpp and appointment.cpp, but do not compile the template .cpp
+    files separately.
 */
 
 #include <iostream>
-#include <string>
+#include "appointment.h"
+#include "book.h"
+#include "sortedtype.h"
+#include "sortedtype.cpp"
 #include "unsortedtype.h"
 #include "unsortedtype.cpp"
 using namespace std;
 
-class Student {
-   private:
-    int id;
-    string name;
-    double cgpa;
-
-   public:
-    Student() {
-        id = 0;
-        name = "";
-        cgpa = 0.0;
-    }
-
-    Student(int studentId, string studentName, double studentCgpa) {
-        id = studentId;
-        name = studentName;
-        cgpa = studentCgpa;
-    }
-
-    bool operator==(const Student& other) const {
-        return id == other.id;
-    }
-
-    void Print() const {
-        cout << id << ", " << name << ", " << cgpa << endl;
-    }
-};
-
-template <class T>
-void PrintList(UnsortedType<T>& list) {
-    T item;
+void PrintUnsortedIntegers(UnsortedType<int>& list) {
+    int item;
     list.Reset();
-
     for (int i = 0; i < list.Length(); i++) {
         list.GetNext(item);
         cout << item << " ";
@@ -53,83 +25,82 @@ void PrintList(UnsortedType<T>& list) {
     cout << endl;
 }
 
-void PrintStudentList(UnsortedType<Student>& list) {
-    Student item;
+void PrintSortedIntegers(SortedType<int>& list) {
+    int item;
     list.Reset();
+    for (int i = 0; i < list.Length(); i++) {
+        list.GetNext(item);
+        cout << item << " ";
+    }
+    cout << endl;
+}
 
+void PrintBooks(UnsortedType<Book>& list) {
+    Book item;
+    list.Reset();
     for (int i = 0; i < list.Length(); i++) {
         list.GetNext(item);
         item.Print();
     }
 }
 
-template <class T>
-void PrintSearchResult(UnsortedType<T>& list, T item) {
-    bool found;
-    list.Search(item, found);
-
-    if (found) {
-        cout << "Item is found" << endl;
-    } else {
-        cout << "Item is not found" << endl;
+void PrintAppointments(SortedType<Appointment>& list) {
+    Appointment item;
+    list.Reset();
+    for (int i = 0; i < list.Length(); i++) {
+        list.GetNext(item);
+        item.Print();
     }
 }
 
-template <class T>
-void PrintFullStatus(UnsortedType<T>& list) {
-    if (list.IsFull()) {
-        cout << "List is full" << endl;
-    } else {
-        cout << "List is not full" << endl;
-    }
+template <class ListType, class ItemType>
+void PrintSearchResult(const ListType& list, const ItemType& value) {
+    bool found;
+    list.Search(value, found);
+    cout << (found ? "Item is found" : "Item is not found") << endl;
 }
 
 int main() {
-    UnsortedType<int> numbers;
+    cout << "LAB 5 - UNSORTED INTEGER LIST" << endl;
+    UnsortedType<int> unsortedNumbers;
+    unsortedNumbers.Insert(5);
+    unsortedNumbers.Insert(7);
+    unsortedNumbers.Insert(6);
+    unsortedNumbers.Insert(9);
+    PrintUnsortedIntegers(unsortedNumbers);
+    cout << "Length: " << unsortedNumbers.Length() << endl;
+    PrintSearchResult(unsortedNumbers, 7);
+    unsortedNumbers.Delete(7);  // Last item replaces 7; order is not preserved.
+    PrintUnsortedIntegers(unsortedNumbers);
 
-    numbers.Insert(5);
-    numbers.Insert(7);
-    numbers.Insert(6);
-    numbers.Insert(9);
+    cout << "\nLAB 5 - UNSORTED BOOK LIST" << endl;
+    UnsortedType<Book> books;
+    books.Insert(Book(101, "Algorithms", 650.0));
+    books.Insert(Book(205, "Data Structures", 720.0));
+    books.Insert(Book(310, "C++ Basics", 500.0));
+    books.Delete(Book(205, "", 0.0));  // operator== compares ISBN only.
+    PrintBooks(books);
 
-    PrintList(numbers);
-    cout << "Length: " << numbers.Length() << endl;
+    cout << "\nLAB 6 - SORTED INTEGER LIST" << endl;
+    SortedType<int> sortedNumbers;
+    sortedNumbers.Insert(5);
+    sortedNumbers.Insert(4);
+    sortedNumbers.Insert(2);
+    sortedNumbers.Insert(7);
+    sortedNumbers.Insert(1);
+    PrintSortedIntegers(sortedNumbers);
+    PrintSearchResult(sortedNumbers, 4);
+    sortedNumbers.Delete(4);  // Later items shift left; order is preserved.
+    PrintSortedIntegers(sortedNumbers);
 
-    numbers.Insert(1);
-    numbers.Insert(12);
-
-    PrintList(numbers);
-
-    PrintSearchResult(numbers, 4);
-    PrintSearchResult(numbers, 5);
-    PrintSearchResult(numbers, 9);
-    PrintSearchResult(numbers, 10);
-
-    PrintFullStatus(numbers);
-
-    numbers.Delete(5);
-    PrintFullStatus(numbers);
-    PrintList(numbers);
-
-    numbers.Delete(1);
-    PrintList(numbers);
-
-    numbers.Delete(6);
-    PrintList(numbers);
-
-    numbers.Delete(16);
-
-    cout << endl;
-
-    UnsortedType<Student> students;
-    students.Insert(Student(15234, "Jon", 2.6));
-    students.Insert(Student(13732, "Tyrion", 3.9));
-    students.Insert(Student(13569, "Sandor", 1.2));
-    students.Insert(Student(15467, "Ramsey", 3.8));
-    students.Insert(Student(16285, "Arya", 3.1));
-
-    students.Delete(Student(15467, "", 0.0));
-    PrintStudentList(students);
+    cout << "\nLAB 6 - SORTED APPOINTMENT LIST" << endl;
+    SortedType<Appointment> appointments;
+    appointments.Insert(Appointment(14, 30, "Project meeting"));
+    appointments.Insert(Appointment(9, 15, "Lab assessment"));
+    appointments.Insert(Appointment(12, 0, "Lunch"));
+    appointments.Insert(Appointment(16, 45, "Library"));
+    appointments.Delete(Appointment(12, 0, ""));
+    PrintAppointments(appointments);
 
     return 0;
 }

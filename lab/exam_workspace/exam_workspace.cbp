@@ -38,11 +38,20 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 
+		<Unit filename="appointment.cpp" />
+		<Unit filename="book.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="sortedtype.cpp">
+			<Option compile="0" />
+			<Option link="0" />
+		</Unit>
 		<Unit filename="unsortedtype.cpp">
 			<Option compile="0" />
 			<Option link="0" />
 		</Unit>
+		<Unit filename="appointment.h" />
+		<Unit filename="book.h" />
+		<Unit filename="sortedtype.h" />
 		<Unit filename="unsortedtype.h" />
 
 		<Extensions>
