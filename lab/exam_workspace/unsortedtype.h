@@ -5,12 +5,12 @@ const int UNSORTED_CAPACITY = 5;
 
 template <class T>
 class UnsortedType {
-   private:
+private:
     T* data;
     int currentSize;
     int pointTo;
 
-   public:
+public:
     UnsortedType();
     ~UnsortedType();
     int Length();

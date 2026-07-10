@@ -4,12 +4,12 @@
 #include <string>
 
 class Book {
-   private:
+private:
     int isbn;
     std::string title;
     double price;
 
-   public:
+public:
     Book();
     Book(int isbn, std::string title, double price);
 

@@ -1,8 +1,3 @@
-/*
-    Lab 5 template source file.
-    Include this file from main.cpp so the compiler can see template bodies.
-*/
-
 #include "unsortedtype.h"
 #include <iostream>
 using namespace std;

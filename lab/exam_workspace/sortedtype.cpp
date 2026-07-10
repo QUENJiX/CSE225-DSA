@@ -1,8 +1,3 @@
-/*
-    Lab 6 template definitions.
-    Include this file from main.cpp so template bodies are visible.
-*/
-
 #include "sortedtype.h"
 #include <iostream>
 using namespace std;

@@ -1,11 +1,3 @@
-/*
-    Assessment workspace for Lab 5 and Lab 6.
-
-    Template rule: include each template .cpp below. Compile main.cpp together
-    with book.cpp and appointment.cpp, but do not compile the template .cpp
-    files separately.
-*/
-
 #include <iostream>
 #include "appointment.h"
 #include "book.h"

@@ -4,14 +4,14 @@
 #include <string>
 
 class Appointment {
-   private:
+private:
     int hour;
     int minute;
     std::string purpose;
 
     int TotalMinutes() const;
 
-   public:
+public:
     Appointment();
     Appointment(int hour, int minute, std::string purpose);
 
