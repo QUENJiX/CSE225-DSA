@@ -37,6 +37,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 
+		<Unit filename="dynarr.cpp" />
 		<Unit filename="dynarr.h" />
 		<Unit filename="main.cpp" />
 
